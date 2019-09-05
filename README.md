@@ -10,6 +10,7 @@ Requirement: HP Proliant server with HP hpacucli/hpssacli RPM package.
 
 Command usage Help:
 
+```
 Show HP Smart Array controller hardware inventory.
 Usage: $0 with one of the flags:
  -c     Display controller detailed info
@@ -22,4 +23,5 @@ Usage: $0 with one of the flags:
  -l     Display logical drive info
  -D     Display controller Diagnostics info
  -h     Print Help info
+```
 
