@@ -12,7 +12,7 @@ Command usage Help:
 
 ```
 Show HP Smart Array controller hardware inventory.
-Usage: $0 with one of the flags:
+Use smartshow with one of the flags:
  -c     Display controller detailed info
  -C     Display all controllers present
  -e     Display disk enclosure info
