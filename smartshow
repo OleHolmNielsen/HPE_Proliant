@@ -74,7 +74,7 @@ then
 	echo Creating work directory $TMPDIR
 	mkdir -v $TMPDIR
 fi
-DISKTEMP=$TMPDIR/smartshow.$$
+DISKTEMP=`mktemp`
 
 # Process command arguments
 while getopts "acsCdelD1h" options
@@ -112,12 +112,13 @@ do
 				SIZE=`grep "  Size:"		$DISKTEMP | awk -F: '{print $2}'`
 				MODL=`grep "  Model:"		$DISKTEMP | awk -F: '{print $2}'`
 				FWRE=`grep "Firmware Revision:"	$DISKTEMP | awk -F: '{print $2}'`
+				OSDISKNAME=`grep "Disk Name:"	$DISKTEMP | awk -F: '{print $2}'`	# Disk Name is used with HBA adapters
 				if [ "$SIZE" = ' ??? GB' ]
 				then
 					SIZE="Unknown size"
 					MODL="Unknown model"
 				fi
-				echo "$PHYS:$STAT:$SIZE:$MODL:$FWRE"
+				echo "$PHYS:$STAT:$SIZE:$MODL:$FWRE $OSDISKNAME"
 		    		rm -f $DISKTEMP
 			done
 		    done;;
@@ -127,6 +128,7 @@ do
 		    done;;
 		# Display logical drive info
 		l ) for ctrl in $CONTROLLERS; do
+			$HPACUCLI controller slot=$ctrl show status
 			$HPACUCLI controller slot=$ctrl logicaldrive all show detail
 		    done;;
 		# Display controller Diagnostics info
